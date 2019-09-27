@@ -13,14 +13,11 @@ const bodyParser = require("body-parser")
 const app = express()
 app.use(bodyParser.json())
 
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
-
-
 const client = require('./db_client.js')
 
 const registerController = require('./controllers/register')
 const loginController = require('./controllers/login')
+const documentsController = require('./controllers/documents')
 
 const authorization = require('./middle_wares/authorization')
 
@@ -44,9 +41,8 @@ app.post('/register', registerController.register)
 
 app.post('/login', loginController.login)
 
-app.post('/documents', authorization,(user, req,res,next)=>{
-    console.log(user)
-    //TODO: to retrieve the documents the user has saved from the database
-})
+app.get('/documents', authorization, documentsController.getDocuments)
+
+app.put('/documents', authorization, documentsController.addDocument)
 
 http.createServer(app).listen(process.env.PORT)

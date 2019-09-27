@@ -5,7 +5,8 @@ exports.register = (req,res,next) => {
     let hash = bcrypt.hashSync(req.body.password,salt)
     collection.insertOne({
         userid : req.body.userid,
-        password: hash
+        password: hash,
+        documents: req.body.documents
     }, (err, result) => {
         if (err){ 
             res.status(400).send({message: err})
