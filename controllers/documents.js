@@ -10,8 +10,13 @@ exports.getDocuments = (user, req,res,next) => {
 
 //TODO: t/s document update doesn't work
 exports.addDocument = (user, req,res,next) => {
+    console.log(user)
+    let newItem = {
+        "name": req.body.name,
+        "author": req.body.author
+    }
     collection.updateOne({userid: user.userid}, 
-                        {'$set': {'userid': '102'}}, 
+                        {'$push': {'documents': newItem}}, 
                         (err, item) => {
                             console.log(item)
                             res.status(200).send('document updated')
