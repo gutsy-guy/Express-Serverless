@@ -10,16 +10,17 @@ const http = require('http')
 
 const express = require('express')
 const bodyParser = require("body-parser")
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
-
-const salt = bcrypt.genSaltSync(9)
-const port = 8080
-
 const app = express()
 app.use(bodyParser.json())
 
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+
+
 const client = require('./db_client.js')
+
+const registerController = require('./controllers/register')
+const loginController = require('./controllers/login')
 
 client.connect((error,client)=>{
     if (error){
@@ -36,46 +37,10 @@ app.use(function(req, res, next) {
     next();
   });
 
-// app.post('/register', (req, res, next)=>{
-//     let hash = bcrypt.hashSync(req.body.password,salt)
-//     collection.insertOne({
-//         username: req.body.username,
-//         password: hash
-//     }, (err, result) => {
-//         if (err){
-//             return res.status(500).send(err)
-//         }
-//         res.send(result.result)
-//     })
-// })
-
-const registerController = require('./controllers/register')
-
+//TODO: add authorization for registering user and (possibly separate database for admin)
 app.post('/register', registerController.register)
 
-app.post('/login',(req,res,next)=>{
-    collection.findOne({username: req.body.username}, (err,data)=>{
-        if (err) { return res.status(500).send({message: "Server error"}) }
-        
-        if (data === null) { 
-            return res.status(404).send({message: "User does not exist"}) 
-        }
-
-        else {
-            if (bcrypt.compareSync(req.body.password,data.password)){
-                token = jwt.sign({"username": data.username},process.env.JWT_PRIVATE_KEY)    //sign the username (optional: expiry time)
-                res.status(200).send({
-                    message: "Authentication Successful",
-                    token: token
-                })
-            }
-
-            else{
-                res.status(403).send({message: "Incorrect password"})
-            }
-        }
-    })
-})
+app.post('/login', loginController.login)
 
 authorization = ((req,res,next)=>{
     try {
@@ -92,4 +57,4 @@ app.post('/documents', authorization,(user, req,res,next)=>{
     //TODO: to retrieve the documents the user has saved from the database
 })
 
-http.createServer(app).listen(port)
+http.createServer(app).listen(process.env.PORT)
