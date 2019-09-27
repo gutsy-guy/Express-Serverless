@@ -19,10 +19,7 @@ const port = 8080
 const app = express()
 app.use(bodyParser.json())
 
-//REFERENCE: https://docs.atlas.mongodb.com/driver-connection/
-const mongodb = require('mongodb').MongoClient;
-const database_url = 'mongodb+srv://PJFC_USER:'+process.env.MONGO_DB_PASSWORD+'@cluster0-5xg3p.mongodb.net/test?retryWrites=true&w=majority'
-const client = new mongodb(database_url, {useNewUrlParser:true, useUnifiedTopology:true})
+const client = require('./db_client.js')
 
 //REFERENCE: https://www.thepolyglotdeveloper.com/2018/09/developing-restful-api-nodejs-mongodb-atlas/
 client.connect((error,client)=>{
