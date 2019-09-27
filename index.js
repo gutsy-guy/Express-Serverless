@@ -22,6 +22,8 @@ const client = require('./db_client.js')
 const registerController = require('./controllers/register')
 const loginController = require('./controllers/login')
 
+const authorization = require('./middle_wares/authorization')
+
 client.connect((error,client)=>{
     if (error){
         throw error
@@ -31,7 +33,7 @@ client.connect((error,client)=>{
     console.log("Connected to database")
 })
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     next();
@@ -41,16 +43,6 @@ app.use(function(req, res, next) {
 app.post('/register', registerController.register)
 
 app.post('/login', loginController.login)
-
-authorization = ((req,res,next)=>{
-    try {
-        let user = jwt.verify(req.body.token, process.env.JWT_PRIVATE_KEY)
-        next(user)
-    } 
-    catch {
-        res.status(401).send({ message: "Authorization Error" })
-    }
-})
 
 app.post('/documents', authorization,(user, req,res,next)=>{
     console.log(user)
