@@ -21,35 +21,37 @@ app.use(bodyParser.json())
 
 const client = require('./db_client.js')
 
-//REFERENCE: https://www.thepolyglotdeveloper.com/2018/09/developing-restful-api-nodejs-mongodb-atlas/
 client.connect((error,client)=>{
     if (error){
-        res.status(500).send({message: "Can't connect to databse", error: err})
+        throw error
     }
-    database = client.db("PJFC")
-    collection = database.collection("people")
+    database = client.db(process.env.DB_NAME)
+    collection = database.collection(process.env.DB_STUDENT_COLLECTION)
     console.log("Connected to database")
 })
 
-//Added because of COR policy error happens while accessed from client (for localhost)
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     next();
   });
 
-app.post('/register', (req, res, next)=>{
-    let hash = bcrypt.hashSync(req.body.password,salt)
-    collection.insertOne({
-        username: req.body.username,
-        password: hash
-    }, (err, result) => {
-        if (err){
-            return res.status(500).send(err)
-        }
-        res.send(result.result)
-    })
-})
+// app.post('/register', (req, res, next)=>{
+//     let hash = bcrypt.hashSync(req.body.password,salt)
+//     collection.insertOne({
+//         username: req.body.username,
+//         password: hash
+//     }, (err, result) => {
+//         if (err){
+//             return res.status(500).send(err)
+//         }
+//         res.send(result.result)
+//     })
+// })
+
+const registerController = require('./controllers/register')
+
+app.post('/register', registerController.register)
 
 app.post('/login',(req,res,next)=>{
     collection.findOne({username: req.body.username}, (err,data)=>{
