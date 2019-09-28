@@ -1,5 +1,6 @@
-//TODO: to have unique user id for element
-//TODO: to define model for user and book
+//TODO: to have unique user id for docuemnts
+//TODO: to define models for user and documents
+//TODO: to crate entry for admin
 
 exports.getDocuments = (user, req,res,next) => {
     collection.findOne({userid: user.userid}, (err,data)=>{
@@ -27,9 +28,26 @@ exports.deleteDocument = (user, req,res,next) => {
     collection.updateOne({userid: user.userid}, 
                         {'$pull': {'documents': { 'name' : req.body.name}}}, 
                         (err, item) => {
-                            if (err) { return res.status(404).send }
+                            if (err) { return res.status(404).send() }
                             res.status(200).send('document deleted')
                         })
 
 }
 
+exports.updateDocument = (user, req,res,next) => {
+    collection.updateOne({userid: user.userid, 'documents.name':req.body.name}, 
+                        {$set: {'documents.$.author':req.body.author}}, 
+                        (err, item) => {
+                            if (err) { return res.status(404).send(err) }
+                            res.status(200).send('document updated')
+                        })
+}
+
+//get specific document
+exports.getDocument = (user, req,res,next) => {
+    collection.findOne({userid: user.userid}, (err,data)=>{
+        if (err) { return res.status(404).send() }
+        requestedDoc = data.documents.filter((doc)=>doc.name==req.body.name)
+        res.status(200).send(requestedDoc)
+    })
+}

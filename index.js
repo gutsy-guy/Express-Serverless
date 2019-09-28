@@ -43,8 +43,13 @@ app.post('/login', loginController.login)
 
 app.get('/documents', authorization, documentsController.getDocuments)
 
+//get the specific document
+app.get('/document', authorization, documentsController.getDocument)
+
 app.put('/documents', authorization, documentsController.addDocument)
 
 app.delete('/documents', authorization, documentsController.deleteDocument)
+
+app.patch('/documents',authorization, documentsController.updateDocument)
 
 http.createServer(app).listen(process.env.PORT)
