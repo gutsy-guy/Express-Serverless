@@ -1,4 +1,5 @@
-
+//TODO: to have unique user id for element
+//TODO: to define model for user and book
 
 exports.getDocuments = (user, req,res,next) => {
     collection.findOne({userid: user.userid}, (err,data)=>{
@@ -8,9 +9,7 @@ exports.getDocuments = (user, req,res,next) => {
     })
 }
 
-//TODO: t/s document update doesn't work
 exports.addDocument = (user, req,res,next) => {
-    console.log(user)
     let newItem = {
         "name": req.body.name,
         "author": req.body.author
@@ -18,8 +17,19 @@ exports.addDocument = (user, req,res,next) => {
     collection.updateOne({userid: user.userid}, 
                         {'$push': {'documents': newItem}}, 
                         (err, item) => {
-                            console.log(item)
+                            if (err) { return res.status(404).send() }
                             res.status(200).send('document updated')
                         })
 
 }
+
+exports.deleteDocument = (user, req,res,next) => {
+    collection.updateOne({userid: user.userid}, 
+                        {'$pull': {'documents': { 'name' : req.body.name}}}, 
+                        (err, item) => {
+                            if (err) { return res.status(404).send }
+                            res.status(200).send('document deleted')
+                        })
+
+}
+

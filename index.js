@@ -45,4 +45,6 @@ app.get('/documents', authorization, documentsController.getDocuments)
 
 app.put('/documents', authorization, documentsController.addDocument)
 
+app.delete('/documents', authorization, documentsController.deleteDocument)
+
 http.createServer(app).listen(process.env.PORT)
