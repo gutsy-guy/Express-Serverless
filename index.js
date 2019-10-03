@@ -14,6 +14,7 @@ const loginController = require('./controllers/login')
 const documentsController = require('./controllers/documents')
 
 const authorization = require('./middle_wares/authorization')
+const adminAuthorization = require('./middle_wares/adminAuthorization')
 
 client.connect((error,client)=>{
     if (error){
@@ -21,6 +22,7 @@ client.connect((error,client)=>{
     }
     database = client.db(process.env.DB_NAME)
     collection = database.collection(process.env.DB_STUDENT_COLLECTION)
+    admincollection = database.collection(process.env.DB_ADMIN_COLLECTION)
     console.log("Connected to database")
 })
 
@@ -31,7 +33,9 @@ app.use((req, res, next) => {
   });
 
 //TODO: add authorization for registering user and (possibly separate database for admin)
-app.post('/register', registerController.register)
+app.post('/register', adminAuthorization, registerController.register)
+
+app.post('/adminlogin', loginController.adminLogin)
 
 app.post('/login', loginController.login)
 

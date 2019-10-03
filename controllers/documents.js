@@ -1,6 +1,5 @@
-//TODO: to have unique user id for docuemnts
-//TODO: to define models for user and documents
-//TODO: to crate entry for admin
+
+//TODO: to crate authentication for admin
 
 exports.getDocuments = (user, req,res,next) => {
     collection.findOne({_id: user._id}, (err,data)=>{
@@ -10,24 +9,33 @@ exports.getDocuments = (user, req,res,next) => {
     })
 }
 
-//TODO: check if document exist
 exports.addDocument = (user, req,res,next) => {
     if (req.body.title){
         let newItem = {
             "title": req.body.title,
             "content": typeof req.body.content === 'undefined'? "":  req.body.content
         }
+        //checking if document with the same name exist.
+        collection.findOne({_id: user._id}, (err,data)=>{
+            if (err) { return res.status(404).send() }
+            requestedDoc = data.documents.filter((doc)=>doc.title==req.body.title)
 
-        collection.updateOne({_id: user._id}, 
-                                {'$push': {'documents': newItem}}, 
-                                (err, item) => {
-                                    if (err) { return res.status(404).send({message: err}) }
-                                    return res.status(200).send({message: req.body.title+" saved"})
-                                })
-        
+            if(requestedDoc.length===0){
+                collection.updateOne({_id: user._id}, 
+                    {'$push': {'documents': newItem}}, 
+                    (err, item) => {
+                        if (err) { return res.status(404).send({message: err}) }
+                        return res.status(201).send({message: req.body.title+" created"})
+                    })
+            }
+            else{
+                return res.status(403).send({message: req.body.title+" exists. To update same document, use /PATCH request"})
+            }
+        })
     }
     else { return res.status(400).send("All arguments must be provided.") }
 }
+
 
 exports.deleteDocument = (user, req,res,next) => {
     collection.updateOne({_id: user._id}, 

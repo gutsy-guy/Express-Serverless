@@ -4,7 +4,8 @@
         {
             "userid": [String],
             "username": [String],
-            "password": [String]
+            "password": [String],
+            "token": [String]
         }
 
         - Success Response Code: 200
@@ -50,8 +51,10 @@
   	        "content":[String]
         }
 
-        - Success Response Code: 200
+        - Success Response Code: 201
         - Error Response Code:  401 (Authorization Error)
+                                403 (Document with same name exists. Use PATCH request for update)
+
 
     - PATCH
         --sample request--
@@ -76,7 +79,7 @@
 
 
 ========================================================
-"/document"
+"/doc"
     - GET
          --sample request--
         {

@@ -55,3 +55,9 @@ GET “/doc”
 }
 
 
+
+
+----test
+,
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMDciLCJ1c2VybmFtZSI6IkphbWVzIiwiaWF0IjoxNTcwMDkxMTU4fQ.ZsHR1BMSlnGCfyQHqXCmwhwON_RqKPCUKmbKoGYyJAU"
+
