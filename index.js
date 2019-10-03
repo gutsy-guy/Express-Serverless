@@ -1,9 +1,3 @@
-/**
- * TODOs:
- *  (1) Refactor and use cloud services (APIGateway, Lambda Function)
- *  (2) If have time, refactor into separate modules with controllers
- *  (3) Think of better data structure for storing user detail
- */
 
 require('dotenv').config()
 const http = require('http')
@@ -44,7 +38,7 @@ app.post('/login', loginController.login)
 app.get('/documents', authorization, documentsController.getDocuments)
 
 //get the specific document
-app.get('/document', authorization, documentsController.getDocument)
+app.get('/doc', authorization, documentsController.getDocument)
 
 app.put('/documents', authorization, documentsController.addDocument)
 

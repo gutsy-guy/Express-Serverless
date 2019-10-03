@@ -1,0 +1,57 @@
+—Registering new user
+POST “/register”
+{
+  	"userid": "101",
+  	"username": "Kyaing",
+	"password": "dal"
+}	
+
+—User login 
+POST “/login”
+{
+  	"userid": "101”,
+	"password": "dal"
+}
+
+—Adding new document
+PUT “/documents”
+{
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"title":"Harry Potter",
+  	"content":"Wizarding World"
+}
+
+—Getting current documents saved 
+GET “/documents”
+{
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs"
+}
+
+
+—Updating existing document 
+***NOTE: it will ignore while trying to update non-existing document ***
+PATCH “/documents”
+{
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs”,
+	"title":"Harry Potter",
+  	"content”:”Awesome wizarding World"
+}
+
+
+—Deleting existing document 
+***NOTE: it will ignore while trying to delete non-existing document ***
+DELETE “/documents”
+{
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"title":"Harry Potter",
+  	"content":"Awesome Wizarding World"
+}
+
+—Getting content of document
+GET “/doc”
+{
+  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"title":"Harry Potter"
+}
+
+
