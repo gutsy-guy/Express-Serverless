@@ -92,3 +92,22 @@
                                 404 (Document not found)
 
         - return: {content: [String]}
+
+========================================================
+"/adminlogin"
+    - POST
+        --sample request--
+        {
+            "userid": [String],
+            "password": [String]
+        }
+
+        - Success Response Code: 200
+        - Error Response Code:  404 (user not found)
+                                403 (incorrect password)
+
+        -return
+        {
+            message: [String],
+            token: [String]
+        }

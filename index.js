@@ -32,8 +32,10 @@ app.use((req, res, next) => {
     next();
   });
 
-//TODO: add authorization for registering user and (possibly separate database for admin)
+
 app.post('/register', adminAuthorization, registerController.register)
+// To add user without admin credential, disable the line below and enable the line above
+// app.post('/register', registerController.register)
 
 app.post('/adminlogin', loginController.adminLogin)
 

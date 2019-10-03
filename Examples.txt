@@ -1,9 +1,18 @@
+-Getting admin token
+POST “/adminlogin
+{
+  	"userid": "000",
+  	"username": "admin",
+	"password": "--admin password--"
+}	
+
 —Registering new user
 POST “/register”
 {
-  	"userid": "101",
-  	"username": "Kyaing",
-	"password": "dal"
+  	"userid": "1",
+  	"username": "student1",
+	"password": "student1""
+	"token": "--token returned from admin login--"
 }	
 
 —User login 
@@ -16,7 +25,7 @@ POST “/login”
 —Adding new document
 PUT “/documents”
 {
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"token": "--token returned from login--",
   	"title":"Harry Potter",
   	"content":"Wizarding World"
 }
@@ -24,7 +33,7 @@ PUT “/documents”
 —Getting current documents saved 
 GET “/documents”
 {
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs"
+  	"token": "--token returned from login--"
 }
 
 
@@ -32,7 +41,7 @@ GET “/documents”
 ***NOTE: it will ignore while trying to update non-existing document ***
 PATCH “/documents”
 {
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs”,
+  	"token": "--token returned from login--",
 	"title":"Harry Potter",
   	"content”:”Awesome wizarding World"
 }
@@ -42,7 +51,7 @@ PATCH “/documents”
 ***NOTE: it will ignore while trying to delete non-existing document ***
 DELETE “/documents”
 {
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"token": "--token returned from login--",
   	"title":"Harry Potter",
   	"content":"Awesome Wizarding World"
 }
@@ -50,14 +59,8 @@ DELETE “/documents”
 —Getting content of document
 GET “/doc”
 {
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMDEiLCJ1c2VybmFtZSI6Ikt5YWluZyIsImlhdCI6MTU3MDA4NTc3M30.DkODm77780L0K9EiwSaZ1KLmDGpKiwoycPsU5MNjjTs",
+  	"token": "--token returned from login--",
   	"title":"Harry Potter"
 }
 
-
-
-
-----test
-,
-  	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMDciLCJ1c2VybmFtZSI6IkphbWVzIiwiaWF0IjoxNTcwMDkxMTU4fQ.ZsHR1BMSlnGCfyQHqXCmwhwON_RqKPCUKmbKoGYyJAU"
 
