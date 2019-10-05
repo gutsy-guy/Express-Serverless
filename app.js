@@ -7,8 +7,6 @@ const bodyParser = require("body-parser")
 const app = express()
 app.use(bodyParser.json())
 
-const client = require('./db_client.js')
-
 const registerController = require('./controllers/register')
 const loginController = require('./controllers/login')
 const documentsController = require('./controllers/documents')
@@ -16,15 +14,15 @@ const documentsController = require('./controllers/documents')
 const authorization = require('./middle_wares/authorization')
 const adminAuthorization = require('./middle_wares/adminAuthorization')
 
-client.connect((error,client)=>{
-    if (error){
-        throw error
-    }
-    database = client.db(process.env.DB_NAME)
-    collection = database.collection(process.env.DB_STUDENT_COLLECTION)
-    admincollection = database.collection(process.env.DB_ADMIN_COLLECTION)
-    console.log("Connected to database")
-})
+// client.connect((error,client)=>{
+//     if (error){
+//         throw error
+//     }
+//     database = client.db(process.env.DB_NAME)
+//     collection = database.collection(process.env.DB_STUDENT_COLLECTION)
+//     admincollection = database.collection(process.env.DB_ADMIN_COLLECTION)
+//     console.log("Connected to database")
+// })
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
