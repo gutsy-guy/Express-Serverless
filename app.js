@@ -53,3 +53,5 @@ app.delete('/documents', authorization, documentsController.deleteDocument)
 app.patch('/documents',authorization, documentsController.updateDocument)
 
 http.createServer(app).listen(process.env.PORT)
+
+module.exports = app
