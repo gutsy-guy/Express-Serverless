@@ -1,6 +1,14 @@
-"/register"
-    - POST
-        --sample request--
+# Express-Serverless
+
+*Express-Serverless* is a backend API using express app.\
+The passwords were encrypted with [bcrypt])("https://www.npmjs.com/package/bcrypt") and secured using [jasonwebtoken]("https://www.npmjs.com/package/jsonwebtoken").\
+The express app was wrapped in [aws-serverless-express]("https://github.com/awslabs/aws-serverless-express") to deploly using lambda.\
+
+## "/register"
+
+* POST
+    ```
+        //sample request
         {
             "userid": [String],
             "username": [String],
@@ -10,11 +18,14 @@
 
         - Success Response Code: 200
         - Error Response Code: 400
-    
+    ```
 ========================================================
-"/login"
-    - POST
-        --sample request--
+
+## "/login"
+
+* POST
+    ```
+        //sample request
         {
             "userid": [String],
             "password": [String]
@@ -29,11 +40,14 @@
             message: [String],
             token: [String]
         }
-
+    ```
 ========================================================
-"/documents"
-    - GET
-         --sample request--
+
+## "/documents"
+
+* GET
+````
+        //sample request
         {
             "token" : [String]
         }
@@ -42,9 +56,10 @@
         - Error Response Code:  401 (Authorization Error)
 
         - return: {documents: [ [String] ]}
+````
 
-
-    - PUT
+* PUT
+    ```
         {
             "token" : [String],
             "title":[String]",
@@ -54,10 +69,11 @@
         - Success Response Code: 201
         - Error Response Code:  401 (Authorization Error)
                                 403 (Document with same name exists. Use PATCH request for update)
+   ```
 
-
-    - PATCH
-        --sample request--
+* PATCH
+    ```
+        \\sample reques
         {
             "token" : [String],
             "title":[String]",
@@ -66,8 +82,10 @@
 
         - Success Response Code: 200
         - Error Response Code:  401 (Authorization Error)
+    ```
 
-    - DELETE
+* DELETE
+    ````
         --sample request--
         {
             "token" : [String],
@@ -76,12 +94,15 @@
 
         - Success Response Code: 200
         - Error Response Code:  401 (Authorization Error)
-
+    ```
 
 ========================================================
-"/doc"
-    - GET
-         --sample request--
+
+## "/doc"
+
+* GET
+    ```
+        //sample request
         {
             "token" : [String],
             "title": [String]
@@ -92,9 +113,12 @@
                                 404 (Document not found)
 
         - return: {content: [String]}
+    ```
 
 ========================================================
-"/adminlogin"
+
+## "/adminlogin"
+    ```
     - POST
         --sample request--
         {
@@ -111,3 +135,5 @@
             message: [String],
             token: [String]
         }
+
+    ```
